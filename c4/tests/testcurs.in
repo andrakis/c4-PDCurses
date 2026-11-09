@@ -1,0 +1,53 @@
+~# testcurs: each of its tests from the menu, then Q. c4/pdcc4.c has the notation.
+~# Intro: its boxes, then a key to go on
+
+~#
+`80
+
+   ~
+~#
+~d
+~# Pad: two keys
+  ~
+
+~d
+~# Resize: it asks for a size, then says no
+10
+~
+
+~d
+~# Scroll
+     ~
+
+~d
+~# Input: a key, a string, a number, words
+abc
+hello there
+1234
+some more words
+   ~
+xyz
+    ~
+
+~d
+~# Output
+     ~
+              ~
+           ~
+
+~d
+~# ACS: its pages
+     ~
+
+~d
+~# Attributes
+    ~
+
+~d
+~# Color
+     ~
+
+~d
+~# Clipboard
+    ~
+q

@@ -1,0 +1,9 @@
+# PDCurses (games/pdcurses): upstream's demos. The library goes into each program
+# that uses it.
+pdcurses/:
+	firework.c4r: c4ix-pdcurses-firework.c4r
+	xmas.c4r: c4ix-pdcurses-xmas.c4r
+	testcurs.c4r: c4ix-pdcurses-testcurs.c4r
+	ptest.c4r: c4ix-pdcurses-ptest.c4r
+	ozdemo.c4r: c4ix-pdcurses-ozdemo.c4r
+	tuidemo.c4r: c4ix-pdcurses-tuidemo.c4r

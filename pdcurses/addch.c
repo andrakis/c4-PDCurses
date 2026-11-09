@@ -175,8 +175,12 @@ int waddch(WINDOW *win, const chtype ch)
             /* don't back over left margin */
 
             if (--x < 0)
-        case '\r':
                 x = 0;
+
+            break;
+
+        case '\r':
+            x = 0;
 
             break;
 
