@@ -14,8 +14,9 @@ import { createMachine, boot } from '../../../../libjs/boot.js';
 import { STOP } from '../../../../libjs/c4m.js';
 import { GuiDevice, CMD } from '../../../../libjs/gui-device.js';
 import { typeBytes } from '../../../../libjs/keys.js';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = new URL('../../../../src/c4bb/images/', import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL('../../../../src/c4bb/images/', import.meta.url));
 let fail = 0;
 const check = (cond, what, extra = '') => {
   console.log(`test-window: ${what} ${cond ? 'OK' : 'FAILED'}${!cond && extra ? '\n  ' + String(extra).slice(-800) : ''}`);
@@ -27,7 +28,7 @@ const check = (cond, what, extra = '') => {
 // test will press them, then Q. A row a frame doesn't mention is as it was.
 const script = ['', '~d', '~d~d'];
 const wants = script.map(s => {
-  const out = execFileSync(new URL('../../../../.pdcurses/host/testcurs', import.meta.url).pathname, [],
+  const out = execFileSync(fileURLToPath(new URL('../../../../.pdcurses/host/testcurs', import.meta.url)), [],
     { input: s, cwd: '/tmp' }).toString('latin1');
   const rows = new Array(25).fill(null);
   for (const l of out.split('\n')) {
