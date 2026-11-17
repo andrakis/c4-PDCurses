@@ -17,9 +17,9 @@ PDC_UNITS := addch addchstr addstr attr beep bkgd border clear color delch delet
 PDC_DEMOS := firework xmas testcurs ptest ozdemo tuidemo
 PDC_HDRS  := $(wildcard $(PDC)/*.h $(PDC)/c4/*.h $(PDC)/common/*.h) \
              $(wildcard src/c4ix/libc/include/*.h src/c4ix/libc/include/sys/*.h)
-PDC_CC    := ./c4sp32 -c 400000 src/c4sp/lisp/c4lc.lisp -O $(IMG_G) -mfuse -fno-builtin -c -conforming \
+PDC_CC    := $(call lc32,-c 400000) -O $(IMG_G) -mfuse -fno-builtin -c -conforming \
              -I $(PDC)/c4 -I $(PDC) -I src/c4ix/libc/include
-PDC_PLATCC := ./c4sp32 -c 400000 src/c4sp/lisp/c4lc.lisp -O $(IMG_G) -mfuse -fno-builtin -c \
+PDC_PLATCC := $(call lc32,-c 400000) -O $(IMG_G) -mfuse -fno-builtin -c \
              -I $(PDC)/c4 -I src/c4ix/libc/include -I src/c4ix/include -I libjs/guest
 # what makes the demos repeatable in a scripted run (pdcc4.c)
 PDC_DEMODEFS := time=pdc4_time rand=pdc4_rand srand=pdc4_srand
@@ -27,16 +27,16 @@ PDC_DEMODEFS := time=pdc4_time rand=pdc4_rand srand=pdc4_srand
 pdcurses-objs: $(PDC_UNITS:%=.pdcurses/lib/%.c4o) .pdcurses/lib/pdcc4.c4o \
                .pdcurses/plat-c4ix.c4o .pdcurses/plat-bare.c4o \
                .pdcurses/demo/tui.c4o $(PDC_DEMOS:%=.pdcurses/demo/%.c4o)
-.pdcurses/lib/%.c4o: $(PDC)/pdcurses/%.c $(PDC_HDRS) $(C4LC_LISP) .img_g | c4sp32
+.pdcurses/lib/%.c4o: $(PDC)/pdcurses/%.c $(PDC_HDRS) $(C4LC_LISP) .img_g | $(LC32_BIN)
 	@mkdir -p .pdcurses/lib
 	$(PDC_CC) $< $@ > /dev/null
-.pdcurses/lib/pdcc4.c4o: $(PDC)/c4/pdcc4.c $(PDC_HDRS) $(C4LC_LISP) .img_g | c4sp32
+.pdcurses/lib/pdcc4.c4o: $(PDC)/c4/pdcc4.c $(PDC_HDRS) $(C4LC_LISP) .img_g | $(LC32_BIN)
 	@mkdir -p .pdcurses/lib
 	$(PDC_CC) $< $@ > /dev/null
-.pdcurses/plat-%.c4o: $(PDC)/c4/plat-%.c $(PDC_HDRS) $(C4LC_LISP) .img_g | c4sp32
+.pdcurses/plat-%.c4o: $(PDC)/c4/plat-%.c $(PDC_HDRS) $(C4LC_LISP) .img_g | $(LC32_BIN)
 	@mkdir -p .pdcurses
 	$(PDC_PLATCC) $< $@ > /dev/null
-.pdcurses/demo/%.c4o: $(PDC)/demos/%.c $(PDC_HDRS) $(C4LC_LISP) .img_g | c4sp32
+.pdcurses/demo/%.c4o: $(PDC)/demos/%.c $(PDC_HDRS) $(C4LC_LISP) .img_g | $(LC32_BIN)
 	@mkdir -p .pdcurses/demo
 	$(PDC_CC) -I $(PDC)/demos -I $(PDC)/c4/inc $(PDC_DEMODEFS:%=-D %) $< $@ > /dev/null
 GAME_OBJS += pdcurses-objs
